@@ -20,7 +20,7 @@ else:
 endState = sorted(initialState)
 endState.append(endState.pop(endState.index(" ")))
 endState = "".join(endState)
-root = (initialState, 0)
+root = (initialState, 0, "")
 def treeSearch(problem, strategy, endState, option):
     
     numExpanded = 0
@@ -40,21 +40,25 @@ def treeSearch(problem, strategy, endState, option):
                 temp = [depth, numCreated, numExpanded, maxFringe]
                 return temp
             if (strategy != "DLS" or (strategy == "DLS" and temp[1] < int(option))):
-                if(temp[0] not in mySet):
+                if((temp[0],temp[2] ) not in mySet):
                     numExpanded = numExpanded + 1
-                    mySet.add(temp[0])
+                   # mySet.add(temp[0])
                     if (validMove(spaceLoc, "up")):
-                        stack.append((movePiece(temp[0], spaceLoc, "up"), temp[1] + 1))
+                        stack.append((movePiece(temp[0], spaceLoc, "up"), temp[1] + 1, temp[0]))
                         numCreated = numCreated + 1
+                        mySet.add((temp[0], movePiece(temp[0], spaceLoc, "up")))
                     if (validMove(spaceLoc, "left")):
-                        stack.append((movePiece(temp[0], spaceLoc, "left"), temp[1] + 1))
+                        stack.append((movePiece(temp[0], spaceLoc, "left"), temp[1] + 1, temp[0]))
                         numCreated = numCreated + 1
+                        mySet.add((temp[0], movePiece(temp[0], spaceLoc, "left")))
                     if (validMove(spaceLoc, "down")):
-                        stack.append((movePiece(temp[0], spaceLoc, "down"), temp[1] + 1))
+                        stack.append((movePiece(temp[0], spaceLoc, "down"), temp[1] + 1, temp[0]))
                         numCreated = numCreated + 1
+                        mySet.add((temp[0], movePiece(temp[0], spaceLoc, "down")))
                     if (validMove(spaceLoc, "right")):
-                        stack.append((movePiece(temp[0], spaceLoc, "right"), temp[1] + 1))
+                        stack.append((movePiece(temp[0], spaceLoc, "right"), temp[1] + 1, temp[0]))
                         numCreated = numCreated + 1    
+                        mySet.add((temp[0], movePiece(temp[0], spaceLoc, "right")))
                     if len(stack) > maxFringe:
                         maxFringe = len(stack)
 
@@ -69,29 +73,30 @@ def treeSearch(problem, strategy, endState, option):
                 depth = temp[1]
                 temp = [depth, numCreated, numExpanded, maxFringe]
                 return temp
-            if(temp[0] not in mySet):
+            
+            if((temp[0],temp[2]) not in mySet):
                 numExpanded = numExpanded + 1
-                mySet.add(temp[0])
+                #mySet.add(temp[0])
 
                 if (validMove(spaceLoc, "up")):
-                    queue.append((movePiece(temp[0], spaceLoc, "up"), temp[1] + 1))
+                    queue.append((movePiece(temp[0], spaceLoc, "up"), temp[1] + 1, temp[0]))
                     numCreated = numCreated + 1
-
+                    mySet.add((temp[0], movePiece(temp[0], spaceLoc, "up")))
                 if (validMove(spaceLoc, "left")):
-                    queue.append((movePiece(temp[0], spaceLoc, "left"), temp[1] + 1))
+                    queue.append((movePiece(temp[0], spaceLoc, "left"), temp[1] + 1, temp[0]))
                     numCreated = numCreated + 1
-
+                    mySet.add((temp[0], movePiece(temp[0], spaceLoc, "left")))
                 if (validMove(spaceLoc, "down")):
-                    queue.append((movePiece(temp[0], spaceLoc, "down"), temp[1] + 1))
+                    queue.append((movePiece(temp[0], spaceLoc, "down"), temp[1] + 1, temp[0]))
                     numCreated = numCreated + 1
-
+                    mySet.add((temp[0], movePiece(temp[0], spaceLoc, "down")))
                 if (validMove(spaceLoc, "right")):
-                    queue.append((movePiece(temp[0], spaceLoc, "right"), temp[1] + 1))
+                    queue.append((movePiece(temp[0], spaceLoc, "right"), temp[1] + 1, temp[0]))
                     numCreated = numCreated + 1   
-                     
+                    mySet.add((temp[0], movePiece(temp[0], spaceLoc, "right")))
                 if len(queue) > maxFringe:
                     maxFringe = len(queue)
-            
+                print(temp)
     if (strategy == "GBFS"):
         stack = [problem]
         errorCount = 0
@@ -107,11 +112,11 @@ def treeSearch(problem, strategy, endState, option):
                 temp = [depth, numCreated, numExpanded, maxFringe]
                 return temp
 
-            if(temp[0] not in mySet):
+            if((temp[0], temp[2]) not in mySet):
                 hdict.clear()
                 lowCount = []
                 numExpanded = numExpanded + 1
-                mySet.add(temp[0])
+               #mySet.add(temp[0])
 
                 if (validMove(spaceLoc, "right")):
                     moveTemp = movePiece(temp[0], spaceLoc, "right")
@@ -122,6 +127,7 @@ def treeSearch(problem, strategy, endState, option):
                     hdict[errorCount] = moveTemp
                     lowCount.append(errorCount)
                     numCreated = numCreated + 1
+                    mySet.add((temp[0], movePiece(temp[0], spaceLoc, "right")))
 
                 if (validMove(spaceLoc, "down")):
                     moveTemp = movePiece(temp[0], spaceLoc, "down")
@@ -132,6 +138,7 @@ def treeSearch(problem, strategy, endState, option):
                     hdict[errorCount] = moveTemp
                     lowCount.append(errorCount)
                     numCreated = numCreated + 1
+                    mySet.add((temp[0], movePiece(temp[0], spaceLoc, "down")))
 
                 if (validMove(spaceLoc, "left")):
                     moveTemp = movePiece(temp[0], spaceLoc, "left")
@@ -142,6 +149,7 @@ def treeSearch(problem, strategy, endState, option):
                     hdict[errorCount] = moveTemp
                     lowCount.append(errorCount)
                     numCreated = numCreated + 1
+                    mySet.add((temp[0], movePiece(temp[0], spaceLoc, "left")))
 
                 if (validMove(spaceLoc, "up")):
                     moveTemp = movePiece(temp[0], spaceLoc, "up")
@@ -152,10 +160,11 @@ def treeSearch(problem, strategy, endState, option):
                     hdict[errorCount] = moveTemp
                     lowCount.append(errorCount)
                     numCreated = numCreated + 1  
+                    mySet.add((temp[0], movePiece(temp[0], spaceLoc, "up")))
 
                 for n in sorted(lowCount, reverse = True):
                     if (n in hdict):
-                        stack.append((hdict.get(n), temp[1] + 1))
+                        stack.append((hdict.get(n), temp[1] + 1, temp[0]))
                 if len(stack) > maxFringe:
                     maxFringe = len(stack)
 
@@ -175,11 +184,11 @@ def treeSearch(problem, strategy, endState, option):
                 temp = [depth, numCreated, numExpanded, maxFringe]
                 return temp
 
-            if(temp[0] not in mySet):
+            if((temp[0], temp[2]) not in mySet):
                 hdict.clear()
                 lowCount = []
                 numExpanded = numExpanded + 1
-                mySet.add(temp[0])
+                #mySet.add(temp[0])
 
                 if (validMove(spaceLoc, "right")):
                     moveTemp = movePiece(temp[0], spaceLoc, "right")
@@ -192,6 +201,7 @@ def treeSearch(problem, strategy, endState, option):
                     hdict[errorCount] = moveTemp
                     lowCount.append(errorCount)
                     numCreated = numCreated + 1
+                    mySet.add((temp[0], movePiece(temp[0], spaceLoc, "right")))
 
                 if (validMove(spaceLoc, "down")):
                     moveTemp = movePiece(temp[0], spaceLoc, "down")
@@ -204,6 +214,7 @@ def treeSearch(problem, strategy, endState, option):
                     hdict[errorCount] = moveTemp
                     lowCount.append(errorCount)
                     numCreated = numCreated + 1
+                    mySet.add((temp[0], movePiece(temp[0], spaceLoc, "down")))
 
                 if (validMove(spaceLoc, "left")):
                     moveTemp = movePiece(temp[0], spaceLoc, "left")
@@ -216,6 +227,7 @@ def treeSearch(problem, strategy, endState, option):
                     hdict[errorCount] = moveTemp
                     lowCount.append(errorCount)
                     numCreated = numCreated + 1
+                    mySet.add((temp[0], movePiece(temp[0], spaceLoc, "left")))
 
                 if (validMove(spaceLoc, "up")):
                     moveTemp = movePiece(temp[0], spaceLoc, "up")
@@ -227,11 +239,12 @@ def treeSearch(problem, strategy, endState, option):
                         errorCount = errorCount + temp[1]
                     hdict[errorCount] = moveTemp
                     lowCount.append(errorCount)
-                    numCreated = numCreated + 1  
+                    numCreated = numCreated + 1 
+                    mySet.add((temp[0], movePiece(temp[0], spaceLoc, "up"))) 
 
                 for n in sorted(lowCount, reverse = True):
                     if (n in hdict):
-                        stack.append((hdict.get(n), temp[1] + 1))
+                        stack.append((hdict.get(n), temp[1] + 1, temp[0]))
                 if len(stack) > maxFringe:
                     maxFringe = len(stack)
 
@@ -412,4 +425,10 @@ def validMove(spaceLoc, dir):
             move = True
 
     return move
-print(treeSearch(root, searchMethod, endState, options))
+gameStats = treeSearch(root, searchMethod, endState, options)
+print(gameStats)
+
+F = open("Readme.txt", "w")
+F.write(initialState + " " + searchMethod + " " + options + "\n")
+F.write(','.join(str(e) for e in gameStats))
+F.close()
