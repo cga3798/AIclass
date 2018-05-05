@@ -33,7 +33,122 @@ def checkWin(board, piece):
 
     return didWin
 
+def validMove(board, square):
+    valid = False
+    if (square[0] == "1"):
+        if (square[2] == "1"):
+            if board[0][0] == ".":
+                valid = True
+        elif (square[2] == "2"):
+            if board[0][1] == ".":
+                valid = True
+        elif (square[2] == "3"):
+            if board[0][2] == ".":
+                valid = True
+        elif (square[2] == "4"):
+            if board[1][0] == ".":
+                valid = True
+        elif (square[2] == "5"):
+            if board[1][1] == ".":
+                valid = True
+        elif (square[2] == "6"):
+            if board[1][2] == ".":
+                valid = True
+        elif (square[2] == "7"):
+            if board[2][0] == ".":
+                valid = True
+        elif (square[2] == "8"):
+            if board[2][1] == ".":
+                valid = True
+        else:
+            if board[2][2] == ".":
+                valid = True
+    elif (square[0] == "2"):
+        if (square[2] == "1"):
+            if board[0][3] == ".":
+                valid = True
+        elif (square[2] == "2"):
+            if board[0][4] == ".":
+                valid = True
+        elif (square[2] == "3"):
+            if board[0][5] == ".":
+                valid = True
+        elif (square[2] == "4"):
+            if board[1][3] == ".":
+                valid = True
+        elif (square[2] == "5"):
+            if board[1][4] == ".":
+                valid = True
+        elif (square[2] == "6"):
+            if board[1][5] == ".":
+                valid = True
+        elif (square[2] == "7"):
+            if board[2][3] == ".":
+                valid = True
+        elif (square[2] == "8"):
+            if board[2][4] == ".":
+                valid = True
+        else:
+            if board[2][5] == ".":
+                valid = True
 
+    elif (square[0] == "3"):
+        if (square[2] == "1"):
+            if board[3][0] == ".":
+                valid = True
+        elif (square[2] == "2"):
+            if board[3][1] == ".":
+                valid = True
+        elif (square[2] == "3"):
+            if board[3][2] == ".":
+                valid = True
+        elif (square[2] == "4"):
+            if board[4][0] == ".":
+                valid = True
+        elif (square[2] == "5"):
+            if board[4][1] == ".":
+                valid = True
+        elif (square[2] == "6"):
+            if board[4][2] == ".":
+                valid = True
+        elif (square[2] == "7"):
+            if board[5][0] == ".":
+                valid = True
+        elif (square[2] == "8"):
+            if board[5][1] == ".":
+                valid = True
+        else:
+            if board[5][2] == ".":
+                valid = True   
+    else:
+        if (square[2] == "1"):
+            if board[3][3] == ".":
+                valid = True
+        elif (square[2] == "2"):
+            if board[3][4] == ".":
+                valid = True
+        elif (square[2] == "3"):
+            if board[3][5] == ".":
+                valid = True
+        elif (square[2] == "4"):
+            if board[4][3] == ".":
+                valid = True
+        elif (square[2] == "5"):
+            if board[4][4] == ".":
+                valid = True
+        elif (square[2] == "6"):
+            if board[4][5] == ".":
+                valid = True
+        elif (square[2] == "7"):
+            if board[5][3] == ".":
+                valid = True
+        elif (square[2] == "8"):
+            if board[5][4] == ".":
+                valid = True
+        else:
+            if board[5][5] == ".":
+                valid = True
+    return valid
 
 def movePiece(board, square, piece):
     if (square[0] == "1"):
@@ -117,7 +232,7 @@ def movePiece(board, square, piece):
     return board
 
 def turnBoard(board, dir, box):
-    if (dir == "right"):
+    if (dir == "R"):
    
         firstPiece = '.'
         secondPiece = '.'
@@ -331,7 +446,7 @@ def turnBoard(board, dir, box):
                 board[4][3] = firstPiece
                 secondPiece = '.'
             board[3][4] = secondPiece
-    elif (dir == "left"):
+    elif (dir == "L"):
         firstPiece = '.'
         secondPiece = '.'
 
@@ -565,7 +680,12 @@ while (not checkWin(gameBoard, "W")):
 
     player1Move = input(player1 + " Enter Move: ")
     player1Move = player1Move.split()
-    gameBoard = movePiece(gameBoard, player1Move[0], player1Color)
+    square = player1Move[0]
+    if (not validMove(gameBoard, square)):
+        while (not validMove(gameBoard, square)):
+            player1Move = input("Move not valid please try again: ")
+            square = player1Move[0]
+    gameBoard = movePiece(gameBoard, square, player1Color)
     print(player1Move)
     gameBoard = turnBoard(gameBoard,player1Move[1][1], player1Move[1][0])
     print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
