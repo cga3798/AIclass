@@ -1,12 +1,5 @@
 import os
 
-player1 = "casey"
-player2 = "Ai"
-gameBoard = [['.' for x in range(6)] for y in range(6)]
-#userInput = input("Enter the initial state followed by search method and options: ")
-#userInput = userInput.split()
-
-
 
 
 def column(matrix, i):
@@ -554,13 +547,27 @@ def turnBoard(board, dir, box):
             
     return board
 
-movePiece(gameBoard,"2/3", "w")
-movePiece(gameBoard,"2/5", "w")
-movePiece(gameBoard,"2/7", "w")
-movePiece(gameBoard,"3/3", "w")
-movePiece(gameBoard,"3/5", "w")
-turnBoard(gameBoard,"right", "2")
-print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
-      for row in gameBoard]))
 
-print(checkWin(gameBoard, "wwwww"))
+
+player1 = input("Enter name of player1: ")
+player2 = "AI"
+player1Color = input("Player1 Token Color (B or W): ")
+if (player1Color == "W"):
+    computerColor = "B"
+else:
+    computerColor = "W"
+choice = input("Player to Move First (1 or 2): ")
+gameBoard = [['.' for x in range(6)] for y in range(6)]
+if (choice == 2):
+    player2 = player1
+    player1 = "AI"
+while (not checkWin(gameBoard, "W")):
+
+    player1Move = input(player1 + " Enter Move: ")
+    player1Move = player1Move.split()
+    gameBoard = movePiece(gameBoard, player1Move[0], player1Color)
+    print(player1Move)
+    gameBoard = turnBoard(gameBoard,player1Move[1][1], player1Move[1][0])
+    print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
+      for row in gameBoard]))
+    player2Move = input(player2 + " Enter Move")
