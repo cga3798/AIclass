@@ -256,7 +256,7 @@ def getMahhattanDistance(currentState, endState):
                         while (currentPlace < goalPlace):
                             currentPlace = currentPlace + 1
                             totalDistance = totalDistance + 1
-            if (goalPlace < 8):
+            elif (goalPlace < 8):
                 if ( currentPlace > 7):
                     while ( currentPlace > 7):
                         currentPlace = currentPlace - 4
@@ -289,7 +289,7 @@ def getMahhattanDistance(currentState, endState):
                         while (currentPlace < goalPlace):
                             currentPlace = currentPlace + 1
                             totalDistance = totalDistance + 1
-            if (goalPlace < 12):
+            elif (goalPlace < 12):
                 if ( currentPlace > 11):
                     while (currentPlace > 11):
                         currentPlace = currentPlace - 4
@@ -399,6 +399,7 @@ def validMove(spaceLoc, dir):
     return move
 gameStats = treeSearch(root, searchMethod, endState, options)
 print(gameStats)
+
 F = open("Readme.txt", "w")
 F.write(initialState + " " + searchMethod + " " + options + "\n")
 F.write(','.join(str(e) for e in gameStats))
