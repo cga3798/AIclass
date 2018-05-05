@@ -25,7 +25,10 @@ def checkWin(board, piece):
     temp = "" + board[5][0] + board[4][1] + board[3][2] + board[2][3] + board[1][4] + board[0][5]
     gamePieces.append(temp)
 
-
+    if (piece == "W"):
+        piece = "WWWWW"
+    else:
+        piece = "BBBBB"
     for x in gamePieces:
 
         if (piece in x):
@@ -415,7 +418,7 @@ def turnBoard(board, dir, box):
                 board[5][5] = secondPiece
                 firstPiece = '.'
             if (board[5][3] != '.'):
-                secondiece = board[5][3]
+                secondPiece = board[5][3]
                 board[5][3] = firstPiece
             else:
                 board[5][3] = firstPiece
@@ -628,7 +631,7 @@ def turnBoard(board, dir, box):
                 board[5][5] = secondPiece
                 firstPiece = '.'
             if (board[3][5] != '.'):
-                secondiece = board[3][5]
+                secondPiece = board[3][5]
                 board[3][5] = firstPiece
             else:
                 board[3][5] = firstPiece
@@ -662,32 +665,55 @@ def turnBoard(board, dir, box):
             
     return board
 
-
+player1Win = False
+player2Win = False
 
 player1 = input("Enter name of player1: ")
 player2 = "AI"
 player1Color = input("Player1 Token Color (B or W): ")
 if (player1Color == "W"):
-    computerColor = "B"
+    player2Color = "B"
 else:
-    computerColor = "W"
+    player2Color = "W"
 choice = input("Player to Move First (1 or 2): ")
 gameBoard = [['.' for x in range(6)] for y in range(6)]
-if (choice == 2):
+if (choice == "2"):
     player2 = player1
     player1 = "AI"
-while (not checkWin(gameBoard, "W")):
+    temp = player1Color
+    player1Color = player2Color
+    player2Color = temp
 
+test = checkWin(gameBoard, player1Color)
+while (not test):
     player1Move = input(player1 + " Enter Move: ")
     player1Move = player1Move.split()
     square = player1Move[0]
     if (not validMove(gameBoard, square)):
         while (not validMove(gameBoard, square)):
             player1Move = input("Move not valid please try again: ")
+            player1Move = player1Move.split()
             square = player1Move[0]
     gameBoard = movePiece(gameBoard, square, player1Color)
     print(player1Move)
     gameBoard = turnBoard(gameBoard,player1Move[1][1], player1Move[1][0])
+    if (checkWin(gameBoard, player1Color)):
+        player1Win = True
     print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
       for row in gameBoard]))
-    player2Move = input(player2 + " Enter Move")
+    player2Move = input(player2 + " Enter Move: ")
+    player2Move = player2Move.split()
+    square = player2Move[0]
+    if (not validMove(gameBoard, square)):
+        while (not validMove(gameBoard, square)):
+            player2Move = input("Move not valid please try again: ")
+            player2Move = player2Move.split()
+            square = player2Move[0]
+    gameBoard = movePiece(gameBoard, square, player2Color)
+    print(player2Move)
+    gameBoard = turnBoard(gameBoard,player2Move[1][1], player2Move[1][0])
+    if (checkWin(gameBoard, player2Color)):
+        player2Win = True
+    print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
+      for row in gameBoard]))
+    test = checkWin(gameBoard, player1Color) or checkWin(gameBoard, player2Color)
