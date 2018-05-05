@@ -149,13 +149,12 @@ def treeSearch(problem, strategy, endState, option):
                 hdict.sort(key=lambda tup: tup[3], reverse=True)
 
     if (strategy == "AStar"):
-        stack = [problem]
         errorCount = 0
-        lowCount = []
-        hdict = {}
+        hdict = []
+        hdict.append(problem)
 
-        while (len(stack) != 0):
-            temp = stack.pop()
+        while (len(hdict) != 0):
+            temp = hdict.pop()
             spaceLoc = temp[0].index(" ")
 
             if(temp[0] == endState or temp[0] == "123456789ABCDFE " ):
@@ -164,8 +163,8 @@ def treeSearch(problem, strategy, endState, option):
                 return result
 
             if((temp[0], temp[2]) not in mySet):
-                hdict.clear()
-                lowCount = []
+                #hdict.clear()
+                #lowCount = []
                 numExpanded = numExpanded + 1
                 mySet.add((temp[0], temp[2]))
 
@@ -177,8 +176,7 @@ def treeSearch(problem, strategy, endState, option):
                     else:
                         errorCount = getMahhattanDistance(moveTemp, endState)
                         errorCount = errorCount + temp[1]
-                    hdict[errorCount] = moveTemp
-                    lowCount.append(errorCount)
+                    hdict.append((moveTemp, temp[1] + 1, temp[0], errorCount))
                     numCreated = numCreated + 1
                    
 
@@ -190,8 +188,7 @@ def treeSearch(problem, strategy, endState, option):
                     else:
                         errorCount = getMahhattanDistance(moveTemp, endState)
                         errorCount = errorCount + temp[1]
-                    hdict[errorCount] = moveTemp
-                    lowCount.append(errorCount)
+                    hdict.append((moveTemp, temp[1] + 1, temp[0], errorCount))
                     numCreated = numCreated + 1
 
 
@@ -203,8 +200,7 @@ def treeSearch(problem, strategy, endState, option):
                     else:
                         errorCount = getMahhattanDistance(moveTemp, endState)
                         errorCount = errorCount + temp[1]
-                    hdict[errorCount] = moveTemp
-                    lowCount.append(errorCount)
+                    hdict.append((moveTemp, temp[1] + 1, temp[0], errorCount))
                     numCreated = numCreated + 1
 
 
@@ -216,16 +212,13 @@ def treeSearch(problem, strategy, endState, option):
                     else:
                         errorCount = getMahhattanDistance(moveTemp, endState)
                         errorCount = errorCount + temp[1]
-                    hdict[errorCount] = moveTemp
-                    lowCount.append(errorCount)
-                    numCreated = numCreated + 1 
+                    hdict.append((moveTemp, temp[1] + 1, temp[0], errorCount))
+                    numCreated = numCreated + 1
 
+                if len(hdict) > maxFringe:
+                    maxFringe = len(hdict)
+                hdict.sort(key=lambda tup: tup[3], reverse=True)
 
-                for n in sorted(lowCount, reverse = True):
-                    if (n in hdict):
-                        stack.append((hdict.get(n), temp[1] + 1, temp[0]))
-                if len(stack) > maxFringe:
-                    maxFringe = len(stack)
     return result
 
 def getErrorCount(currentState, endState):
@@ -406,7 +399,6 @@ def validMove(spaceLoc, dir):
     return move
 gameStats = treeSearch(root, searchMethod, endState, options)
 print(gameStats)
-
 F = open("Readme.txt", "w")
 F.write(initialState + " " + searchMethod + " " + options + "\n")
 F.write(','.join(str(e) for e in gameStats))
