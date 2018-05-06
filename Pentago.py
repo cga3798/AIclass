@@ -677,7 +677,6 @@ def turnBoard(board, dir, box):
 
 def heuristicScore(board, piece):
     score = 0
-    didWin = False
     gamePieces = []
     for i in range(6):
         temp = ""
@@ -718,6 +717,22 @@ def heuristicScore(board, piece):
             if tempCount == 6:
                 score = score + 1    
     return score
+
+def utility(state):
+    return heuristicScore(state, "W") - heuristicScore(state, "B")
+
+def successors(state):
+    possibleMove = []
+    for square in state:
+        
+
+def MaxValue(state):
+    if (checkWin(state, "W") or checkWin(state, "B")):
+        return utility(state)
+    
+    
+
+
 
 player1Win = False
 player2Win = False
