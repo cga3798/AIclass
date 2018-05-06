@@ -24,6 +24,16 @@ def checkWin(board, piece):
     gamePieces.append(temp)
     temp = "" + board[5][0] + board[4][1] + board[3][2] + board[2][3] + board[1][4] + board[0][5]
     gamePieces.append(temp)
+    temp = "" + board[0][4] + board[1][3] + board[2][2] + board[3][1] + board[4][0] 
+    gamePieces.append(temp)
+    temp = "" + board[5][1] + board[4][2] + board[3][3] + board[2][4] + board[1][5] 
+    gamePieces.append(temp)
+    temp = "" + board[1][0] + board[2][1] + board[3][2] + board[4][3] + board[5][4] 
+    gamePieces.append(temp)
+    temp = "" + board[5][0] + board[4][1] + board[3][2] + board[2][3] + board[1][4] 
+    gamePieces.append(temp)
+    temp = "" + board[0][1] + board[1][2] + board[2][3] + board[3][4] + board[4][5]
+    gamePieces.append(temp)
 
     if (piece == "W"):
         piece = "WWWWW"
@@ -665,6 +675,50 @@ def turnBoard(board, dir, box):
             
     return board
 
+def heuristicScore(board, piece):
+    score = 0
+    didWin = False
+    gamePieces = []
+    for i in range(6):
+        temp = ""
+        for j in range(6):
+            temp = temp + board[i][j]
+        gamePieces.append(temp)
+        tempColumn = column(board, i)
+
+        temp = ""
+        for k in range(6):
+            temp = temp + tempColumn[k]
+
+        gamePieces.append(temp)
+    temp = "" + board[0][0] + board[1][1] + board[2][2] + board[3][3] + board[4][4] + board[5][5]
+    gamePieces.append(temp)
+    temp = "" + board[5][0] + board[4][1] + board[3][2] + board[2][3] + board[1][4] + board[0][5]
+    gamePieces.append(temp)
+    temp = "" + board[0][4] + board[1][3] + board[2][2] + board[3][1] + board[4][0] 
+    gamePieces.append(temp)
+    temp = "" + board[5][1] + board[4][2] + board[3][3] + board[2][4] + board[1][5] 
+    gamePieces.append(temp)
+    temp = "" + board[1][0] + board[2][1] + board[3][2] + board[4][3] + board[5][4] 
+    gamePieces.append(temp)
+    temp = "" + board[5][0] + board[4][1] + board[3][2] + board[2][3] + board[1][4] 
+    gamePieces.append(temp)
+    temp = "" + board[0][1] + board[1][2] + board[2][3] + board[3][4] + board[4][5]
+    gamePieces.append(temp)
+
+    for x in gamePieces:
+        tempCount = 0
+        for letter in x:
+            if (letter == piece or letter == "."):
+                tempCount = tempCount + 1
+            else:
+                tempCount = 0
+            if tempCount == 5:
+                score = score + 1
+            if tempCount == 6:
+                score = score + 1    
+    return score
+
 player1Win = False
 player2Win = False
 
@@ -716,4 +770,5 @@ while (not test):
         player2Win = True
     print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
       for row in gameBoard]))
+    print(heuristicScore(gameBoard, player1Color))
     test = checkWin(gameBoard, player1Color) or checkWin(gameBoard, player2Color)
