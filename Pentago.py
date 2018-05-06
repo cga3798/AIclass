@@ -721,10 +721,15 @@ def heuristicScore(board, piece):
 def utility(state):
     return heuristicScore(state, "W") - heuristicScore(state, "B")
 
-def successors(state):
-    possibleMove = []
-    for square in state:
-        
+def successors(state, piece):
+    possibleMoves = []
+    for i in range(6):
+        for k in range(6):
+            if (state[i][k] == "."):
+                temp = state
+                temp[i][k] = piece
+                possibleMoves.append(temp)
+    return possibleMoves
 
 def MaxValue(state):
     if (checkWin(state, "W") or checkWin(state, "B")):
