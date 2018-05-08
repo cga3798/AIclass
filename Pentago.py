@@ -720,7 +720,14 @@ def heuristicScore(board, piece):
     return score
 
 def utility(state):
-    return heuristicScore(state, "W") - heuristicScore(state, "B")
+    score = heuristicScore(state, "W") - heuristicScore(state, "B")
+    if(checkWin(state, "W") and checkWin(state, "B")):
+        score = "tie"
+    elif (checkWin(state, "w")):
+        score = 100
+    elif (checkWin(state, "B")):
+        score = -100
+    return score
 
 def successors(state, piece):
     possibleMoves = []
@@ -732,24 +739,24 @@ def successors(state, piece):
                 possibleMoves.append(temp)
     return possibleMoves
 
-def MaxValue(state):
+def MaxValue(state, piece):
     if (checkWin(state, "W") or checkWin(state, "B")):
         return utility(state)
     v = -1000000
-    for x in successors(state):
-        v = max(v, minValue(x))
+    for x in successors(state, piece):
+        v = max(v, minValue(x, piece))
     return v
 
-def minValue(state):
+def minValue(state, piece):
     if (checkWin(state, "W") or checkWin(state, "B")):
         return utility(state)
     v = 1000000000
-    for x in successors(state):
-        v = min(v, MaxValue(x))
+    for x in successors(state, piece):
+        v = min(v, MaxValue(x, piece))
     return v
 
-def miniMaxDecision(sate):
-    v = MaxValue(sate)
+def miniMaxDecision(sate, piece):
+    v = MaxValue(sate, piece)
 
     
 
