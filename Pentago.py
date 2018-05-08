@@ -713,6 +713,7 @@ def heuristicScore(board, piece):
             else:
                 tempCount = 0
             if tempCount == 5:
+                
                 score = score + 1
             if tempCount == 6:
                 score = score + 1    
@@ -734,7 +735,22 @@ def successors(state, piece):
 def MaxValue(state):
     if (checkWin(state, "W") or checkWin(state, "B")):
         return utility(state)
-    
+    v = -1000000
+    for x in successors(state):
+        v = max(v, minValue(x))
+    return v
+
+def minValue(state):
+    if (checkWin(state, "W") or checkWin(state, "B")):
+        return utility(state)
+    v = 1000000000
+    for x in successors(state):
+        v = min(v, MaxValue(x))
+    return v
+
+def miniMaxDecision(sate):
+    v = MaxValue(sate)
+
     
 
 
