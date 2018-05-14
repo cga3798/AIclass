@@ -164,141 +164,149 @@ def validMove(board, square):
     return valid
 
 def movePiece(board, square, piece):
+    clone = [['.' for x in range(6)] for y in range(6)]
+    for i in range(6):
+        for k in range(6):
+            clone[i][k] = board[i][k]
     if (square[0] == "1"):
         if (square[2] == "1"):
-            board[0][0] = piece
+            clone[0][0] = piece
         elif (square[2] == "2"):
-            board[0][1] = piece
+            clone[0][1] = piece
         elif (square[2] == "3"):
-            board[0][2] = piece
+            clone[0][2] = piece
         elif (square[2] == "4"):
-            board[1][0] = piece
+            clone[1][0] = piece
         elif (square[2] == "5"):
-            board[1][1] = piece
+            clone[1][1] = piece
         elif (square[2] == "6"):
-            board[1][2] = piece
+            clone[1][2] = piece
         elif (square[2] == "7"):
-            board[2][0] = piece
+            clone[2][0] = piece
         elif (square[2] == "8"):
-            board[2][1] = piece
+            clone[2][1] = piece
         else:
-            board[2][2] = piece
+            clone[2][2] = piece
     elif (square[0] == "2"):
         if (square[2] == "1"):
-            board[0][3] = piece
+            clone[0][3] = piece
         elif (square[2] == "2"):
-            board[0][4] = piece
+            clone[0][4] = piece
         elif (square[2] == "3"):
-            board[0][5] = piece
+            clone[0][5] = piece
         elif (square[2] == "4"):
-            board[1][3] = piece
+            clone[1][3] = piece
         elif (square[2] == "5"):
-            board[1][4] = piece
+            clone[1][4] = piece
         elif (square[2] == "6"):
-            board[1][5] = piece
+            clone[1][5] = piece
         elif (square[2] == "7"):
-            board[2][3] = piece
+            clone[2][3] = piece
         elif (square[2] == "8"):
-            board[2][4] = piece
+            clone[2][4] = piece
         else:
-            board[2][5] = piece
+            clone[2][5] = piece
 
     elif (square[0] == "3"):
         if (square[2] == "1"):
-            board[3][0] = piece
+            clone[3][0] = piece
         elif (square[2] == "2"):
-            board[3][1] = piece
+            clone[3][1] = piece
         elif (square[2] == "3"):
-            board[3][2] = piece
+            clone[3][2] = piece
         elif (square[2] == "4"):
-            board[4][0] = piece
+            clone[4][0] = piece
         elif (square[2] == "5"):
-            board[4][1] = piece
+            clone[4][1] = piece
         elif (square[2] == "6"):
-            board[4][2] = piece
+            clone[4][2] = piece
         elif (square[2] == "7"):
-            board[5][0] = piece
+            clone[5][0] = piece
         elif (square[2] == "8"):
-            board[5][1] = piece
+            clone[5][1] = piece
         else:
-            board[5][2] = piece
+            clone[5][2] = piece
         
     else:
         if (square[2] == "1"):
-            board[3][3] = piece
+            clone[3][3] = piece
         elif (square[2] == "2"):
-            board[3][4] = piece
+            clone[3][4] = piece
         elif (square[2] == "3"):
-            board[3][5] = piece
+            clone[3][5] = piece
         elif (square[2] == "4"):
-            board[4][3] = piece
+            clone[4][3] = piece
         elif (square[2] == "5"):
-            board[4][4] = piece
+            clone[4][4] = piece
         elif (square[2] == "6"):
-            board[4][5] = piece
+            clone[4][5] = piece
         elif (square[2] == "7"):
-            board[5][3] = piece
+            clone[5][3] = piece
         elif (square[2] == "8"):
-            board[5][4] = piece
+            clone[5][4] = piece
         else:
-            board[5][5] = piece
-    return board
+            clone[5][5] = piece
+    return clone
 
 def turnBoard(board, dir, box):
+    clone = [['.' for x in range(6)] for y in range(6)]
+    for i in range(6):
+        for k in range(6):
+            clone[i][k] = board[i][k]
     if (dir == "R"):
    
         firstPiece = '.'
         secondPiece = '.'
 
         if (box == "1"):
-            if (board[0][0] != '.'):
-                firstPiece = board[0][0]
+            if (clone[0][0] != '.'):
+                firstPiece = clone[0][0]
             else:
                 firstPiece = '.'
-            if (board[0][2] != '.'):
-                secondPiece = board[0][2]
-                board[0][2] = firstPiece
+            if (clone[0][2] != '.'):
+                secondPiece = clone[0][2]
+                clone[0][2] = firstPiece
             else:
-                board[0][2] = firstPiece
+                clone[0][2] = firstPiece
                 secondPiece = '.'
-            if (board[2][2] != '.'):
-                firstPiece = board[2][2]
-                board[2][2] = secondPiece
+            if (clone[2][2] != '.'):
+                firstPiece = clone[2][2]
+                clone[2][2] = secondPiece
             else:
-                board[2][2] = secondPiece
+                clone[2][2] = secondPiece
                 firstPiece = '.'
-            if (board[2][0] != '.'):
-                secondPiece = board[2][0]
-                board[2][0] = firstPiece
+            if (clone[2][0] != '.'):
+                secondPiece = clone[2][0]
+                clone[2][0] = firstPiece
             else:
-                board[2][0] = firstPiece
+                clone[2][0] = firstPiece
                 secondPiece = '.'
-            board[0][0] = secondPiece
+            clone[0][0] = secondPiece
             firstPiece = '.'
             secondPiece = '.'
-            if (board[0][1] != '.'):
-                firstPiece = board[0][1]
+            if (clone[0][1] != '.'):
+                firstPiece = clone[0][1]
             else:
                 firstPiece = '.'
-            if (board[1][2] != '.'):
-                secondPiece = board[1][2]
-                board[1][2] = firstPiece
+            if (clone[1][2] != '.'):
+                secondPiece = clone[1][2]
+                clone[1][2] = firstPiece
             else:
-                board[1][2] = firstPiece
+                clone[1][2] = firstPiece
                 secondPiece = '.'
-            if (board[2][1] != '.'):
-                firstPiece = board[2][1]
-                board[2][1] = secondPiece
+            if (clone[2][1] != '.'):
+                firstPiece = clone[2][1]
+                clone[2][1] = secondPiece
             else:
-                board[2][1] = secondPiece
+                clone[2][1] = secondPiece
                 firstPiece = '.'
-            if (board[1][0] != '.'):
-                secondPiece = board[1][0]
-                board[1][0] = firstPiece
+            if (clone[1][0] != '.'):
+                secondPiece = clone[1][0]
+                clone[1][0] = firstPiece
             else:
-                board[1][0] = firstPiece
+                clone[1][0] = firstPiece
                 secondPiece = '.'
-            board[0][1] = secondPiece
+            clone[0][1] = secondPiece
 
 
         elif (box == "2"):
@@ -306,212 +314,212 @@ def turnBoard(board, dir, box):
             firstPiece = '.'
             secondPiece = '.'
 
-            if (board[0][3] != '.'):
-                firstPiece = board[0][3]
+            if (clone[0][3] != '.'):
+                firstPiece = clone[0][3]
             else:
                 firstPiece = '.'
-            if (board[0][5] != '.'):
-                secondPiece = board[0][5]
-                board[0][5] = firstPiece
+            if (clone[0][5] != '.'):
+                secondPiece = clone[0][5]
+                clone[0][5] = firstPiece
             else:
-                board[0][5] = firstPiece
+                clone[0][5] = firstPiece
                 secondPiece = '.'
-            if (board[2][5] != '.'):
-                firstPiece = board[2][5]
-                board[2][5] = secondPiece
+            if (clone[2][5] != '.'):
+                firstPiece = clone[2][5]
+                clone[2][5] = secondPiece
             else:
-                board[2][5] = secondPiece
+                clone[2][5] = secondPiece
                 firstPiece = '.'
-            if (board[2][3] != '.'):
-                secondPiece = board[2][3]
-                board[2][3] = firstPiece
+            if (clone[2][3] != '.'):
+                secondPiece = clone[2][3]
+                clone[2][3] = firstPiece
             else:
-                board[2][3] = firstPiece
+                clone[2][3] = firstPiece
                 secondPiece = '.'
-            board[0][3] = secondPiece
+            clone[0][3] = secondPiece
             firstPiece = '.'
             secondPiece = '.'
-            if (board[0][4] != '.'):
-                firstPiece = board[0][4]
+            if (clone[0][4] != '.'):
+                firstPiece = clone[0][4]
             else:
                 firstPiece = '.'
-            if (board[1][5] != '.'):
-                secondPiece = board[1][5]
-                board[1][5] = firstPiece
+            if (clone[1][5] != '.'):
+                secondPiece = clone[1][5]
+                clone[1][5] = firstPiece
             else:
-                board[1][5] = firstPiece
+                clone[1][5] = firstPiece
                 secondPiece = '.'
-            if (board[2][4] != '.'):
-                firstPiece = board[2][4]
-                board[2][4] = secondPiece
+            if (clone[2][4] != '.'):
+                firstPiece = clone[2][4]
+                clone[2][4] = secondPiece
             else:
-                board[2][4] = secondPiece
+                clone[2][4] = secondPiece
                 firstPiece = '.'
-            if (board[1][3] != '.'):
-                secondPiece = board[1][3]
-                board[1][3] = firstPiece
+            if (clone[1][3] != '.'):
+                secondPiece = clone[1][3]
+                clone[1][3] = firstPiece
             else:
-                board[1][3] = firstPiece
+                clone[1][3] = firstPiece
                 secondPiece = '.'
-            board[0][4] = secondPiece
+            clone[0][4] = secondPiece
       
         elif (box == "3"):
             firstPiece = '.'
             secondPiece = '.'
 
-            if (board[3][0] != '.'):
-                firstPiece = board[3][0]
+            if (clone[3][0] != '.'):
+                firstPiece = clone[3][0]
             else:
                 firstPiece = '.'
-            if (board[3][2] != '.'):
-                secondPiece = board[3][2]
-                board[3][2] = firstPiece
+            if (clone[3][2] != '.'):
+                secondPiece = clone[3][2]
+                clone[3][2] = firstPiece
             else:
-                board[3][2] = firstPiece
+                clone[3][2] = firstPiece
                 secondPiece = '.'
-            if (board[5][2] != '.'):
-                firstPiece = board[5][2]
-                board[5][2] = secondPiece
+            if (clone[5][2] != '.'):
+                firstPiece = clone[5][2]
+                clone[5][2] = secondPiece
             else:
-                board[5][2] = secondPiece
+                clone[5][2] = secondPiece
                 firstPiece = '.'
-            if (board[5][0] != '.'):
-                secondPiece = board[5][0]
-                board[5][0] = firstPiece
+            if (clone[5][0] != '.'):
+                secondPiece = clone[5][0]
+                clone[5][0] = firstPiece
             else:
-                board[5][0] = firstPiece
+                clone[5][0] = firstPiece
                 secondPiece = '.'
-            board[3][0] = secondPiece
+            clone[3][0] = secondPiece
             firstPiece = '.'
             secondPiece = '.'
-            if (board[3][1] != '.'):
-                firstPiece = board[3][1]
+            if (clone[3][1] != '.'):
+                firstPiece = clone[3][1]
             else:
                 firstPiece = '.'
-            if (board[4][2] != '.'):
-                secondPiece = board[4][2]
-                board[4][2] = firstPiece
+            if (clone[4][2] != '.'):
+                secondPiece = clone[4][2]
+                clone[4][2] = firstPiece
             else:
-                board[4][2] = firstPiece
+                clone[4][2] = firstPiece
                 secondPiece = '.'
-            if (board[5][1] != '.'):
-                firstPiece = board[5][1]
-                board[5][1] = secondPiece
+            if (clone[5][1] != '.'):
+                firstPiece = clone[5][1]
+                clone[5][1] = secondPiece
             else:
-                board[5][1] = secondPiece
+                clone[5][1] = secondPiece
                 firstPiece = '.'
-            if (board[4][0] != '.'):
-                secondPiece = board[4][0]
-                board[4][0] = firstPiece
+            if (clone[4][0] != '.'):
+                secondPiece = clone[4][0]
+                clone[4][0] = firstPiece
             else:
-                board[4][0] = firstPiece
+                clone[4][0] = firstPiece
                 secondPiece = '.'
-            board[3][1] = secondPiece
+            clone[3][1] = secondPiece
         else:
             firstPiece = '.'
             secondPiece = '.'
 
-            if (board[3][3] != '.'):
-                firstPiece = board[3][3]
+            if (clone[3][3] != '.'):
+                firstPiece = clone[3][3]
             else:
                 firstPiece = '.'
-            if (board[3][5] != '.'):
-                secondPiece = board[3][5]
-                board[3][5] = firstPiece
+            if (clone[3][5] != '.'):
+                secondPiece = clone[3][5]
+                clone[3][5] = firstPiece
             else:
-                board[3][5] = firstPiece
+                clone[3][5] = firstPiece
                 secondPiece = '.'
-            if (board[5][5] != '.'):
-                firstPiece = board[5][5]
-                board[5][5] = secondPiece
+            if (clone[5][5] != '.'):
+                firstPiece = clone[5][5]
+                clone[5][5] = secondPiece
             else:
-                board[5][5] = secondPiece
+                clone[5][5] = secondPiece
                 firstPiece = '.'
-            if (board[5][3] != '.'):
-                secondPiece = board[5][3]
-                board[5][3] = firstPiece
+            if (clone[5][3] != '.'):
+                secondPiece = clone[5][3]
+                clone[5][3] = firstPiece
             else:
-                board[5][3] = firstPiece
+                clone[5][3] = firstPiece
                 secondPiece = '.'
-            board[3][3] = secondPiece
+            clone[3][3] = secondPiece
             firstPiece = '.'
             secondPiece = '.'
-            if (board[3][4] != '.'):
-                firstPiece = board[3][4]
+            if (clone[3][4] != '.'):
+                firstPiece = clone[3][4]
             else:
                 firstPiece = '.'
-            if (board[4][5] != '.'):
-                secondPiece = board[4][5]
-                board[4][5] = firstPiece
+            if (clone[4][5] != '.'):
+                secondPiece = clone[4][5]
+                clone[4][5] = firstPiece
             else:
-                board[4][5] = firstPiece
+                clone[4][5] = firstPiece
                 secondPiece = '.'
-            if (board[5][4] != '.'):
-                firstPiece = board[5][4]
-                board[5][4] = secondPiece
+            if (clone[5][4] != '.'):
+                firstPiece = clone[5][4]
+                clone[5][4] = secondPiece
             else:
-                board[5][4] = secondPiece
+                clone[5][4] = secondPiece
                 firstPiece = '.'
-            if (board[4][3] != '.'):
-                secondPiece = board[4][3]
-                board[4][3] = firstPiece
+            if (clone[4][3] != '.'):
+                secondPiece = clone[4][3]
+                clone[4][3] = firstPiece
             else:
-                board[4][3] = firstPiece
+                clone[4][3] = firstPiece
                 secondPiece = '.'
-            board[3][4] = secondPiece
+            clone[3][4] = secondPiece
     elif (dir == "L"):
         firstPiece = '.'
         secondPiece = '.'
 
         if (box == "1"):
-            if (board[0][0] != '.'):
-                firstPiece = board[0][0]
+            if (clone[0][0] != '.'):
+                firstPiece = clone[0][0]
             else:
                 firstPiece = '.'
-            if (board[2][0] != '.'):
-                secondPiece = board[2][0]
-                board[2][0] = firstPiece
+            if (clone[2][0] != '.'):
+                secondPiece = clone[2][0]
+                clone[2][0] = firstPiece
             else:
-                board[2][0] = firstPiece
+                clone[2][0] = firstPiece
                 secondPiece = '.'
-            if (board[2][2] != '.'):
-                firstPiece = board[2][2]
-                board[2][2] = secondPiece
+            if (clone[2][2] != '.'):
+                firstPiece = clone[2][2]
+                clone[2][2] = secondPiece
             else:
-                board[2][2] = secondPiece
+                clone[2][2] = secondPiece
                 firstPiece = '.'
-            if (board[0][2] != '.'):
-                secondPiece = board[0][2]
-                board[0][2] = firstPiece
+            if (clone[0][2] != '.'):
+                secondPiece = clone[0][2]
+                clone[0][2] = firstPiece
             else:
-                board[0][2] = firstPiece
+                clone[0][2] = firstPiece
                 secondPiece = '.'
-            board[0][0] = secondPiece
+            clone[0][0] = secondPiece
             firstPiece = '.'
             secondPiece = '.'
-            if (board[0][1] != '.'):
-                firstPiece = board[0][1]
+            if (clone[0][1] != '.'):
+                firstPiece = clone[0][1]
             else:
                 firstPiece = '.'
-            if (board[1][0] != '.'):
-                secondPiece = board[1][0]
-                board[1][0] = firstPiece
+            if (clone[1][0] != '.'):
+                secondPiece = clone[1][0]
+                clone[1][0] = firstPiece
             else:
-                board[1][0] = firstPiece
+                clone[1][0] = firstPiece
                 secondPiece = '.'
-            if (board[2][1] != '.'):
-                firstPiece = board[2][1]
-                board[2][1] = secondPiece
+            if (clone[2][1] != '.'):
+                firstPiece = clone[2][1]
+                clone[2][1] = secondPiece
             else:
-                board[2][1] = secondPiece
+                clone[2][1] = secondPiece
                 firstPiece = '.'
-            if (board[1][2] != '.'):
-                secondPiece = board[1][2]
-                board[1][2] = firstPiece
+            if (clone[1][2] != '.'):
+                secondPiece = clone[1][2]
+                clone[1][2] = firstPiece
             else:
-                board[1][2] = firstPiece
+                clone[1][2] = firstPiece
                 secondPiece = '.'
-            board[0][1] = secondPiece
+            clone[0][1] = secondPiece
 
 
         elif (box == "2"):
@@ -519,161 +527,164 @@ def turnBoard(board, dir, box):
             firstPiece = '.'
             secondPiece = '.'
 
-            if (board[0][3] != '.'):
-                firstPiece = board[0][3]
+            if (clone[0][3] != '.'):
+                firstPiece = clone[0][3]
             else:
                 firstPiece = '.'
-            if (board[2][3] != '.'):
-                secondPiece = board[2][3]
-                board[2][3] = firstPiece
+            if (clone[2][3] != '.'):
+                secondPiece = clone[2][3]
+                clone[2][3] = firstPiece
             else:
-                board[2][3] = firstPiece
+                clone[2][3] = firstPiece
                 secondPiece = '.'
-            if (board[2][5] != '.'):
-                firstPiece = board[2][5]
-                board[2][5] = secondPiece
+            if (clone[2][5] != '.'):
+                firstPiece = clone[2][5]
+                clone[2][5] = secondPiece
             else:
-                board[2][5] = secondPiece
+                clone[2][5] = secondPiece
                 firstPiece = '.'
-            if (board[0][5] != '.'):
-                secondPiece = board[0][5]
-                board[0][5] = firstPiece
+            if (clone[0][5] != '.'):
+                secondPiece = clone[0][5]
+                clone[0][5] = firstPiece
             else:
-                board[0][5] = firstPiece
+                clone[0][5] = firstPiece
                 secondPiece = '.'
-            board[0][3] = secondPiece
+            clone[0][3] = secondPiece
             firstPiece = '.'
             secondPiece = '.'
-            if (board[0][4] != '.'):
-                firstPiece = board[0][4]
+            if (clone[0][4] != '.'):
+                firstPiece = clone[0][4]
             else:
                 firstPiece = '.'
-            if (board[1][3] != '.'):
-                secondPiece = board[1][3]
-                board[1][3] = firstPiece
+            if (clone[1][3] != '.'):
+                secondPiece = clone[1][3]
+                clone[1][3] = firstPiece
             else:
-                board[1][3] = firstPiece
+                clone[1][3] = firstPiece
                 secondPiece = '.'
-            if (board[2][4] != '.'):
-                firstPiece = board[2][4]
-                board[2][4] = secondPiece
+            if (clone[2][4] != '.'):
+                firstPiece = clone[2][4]
+                clone[2][4] = secondPiece
             else:
-                board[2][4] = secondPiece
+                clone[2][4] = secondPiece
                 firstPiece = '.'
-            if (board[1][5] != '.'):
-                secondPiece = board[1][5]
-                board[1][5] = firstPiece
+            if (clone[1][5] != '.'):
+                secondPiece = clone[1][5]
+                clone[1][5] = firstPiece
             else:
-                board[1][5] = firstPiece
+                clone[1][5] = firstPiece
                 secondPiece = '.'
-            board[0][4] = secondPiece
+            clone[0][4] = secondPiece
       
         elif (box == "3"):
             firstPiece = '.'
             secondPiece = '.'
 
-            if (board[3][0] != '.'):
-                firstPiece = board[3][0]
+            if (clone[3][0] != '.'):
+                firstPiece = clone[3][0]
             else:
                 firstPiece = '.'
-            if (board[5][0] != '.'):
-                secondPiece = board[5][0]
-                board[5][0] = firstPiece
+            if (clone[5][0] != '.'):
+                secondPiece = clone[5][0]
+                clone[5][0] = firstPiece
             else:
-                board[5][0] = firstPiece
+                clone[5][0] = firstPiece
                 secondPiece = '.'
-            if (board[5][2] != '.'):
-                firstPiece = board[5][2]
-                board[5][2] = secondPiece
+            if (clone[5][2] != '.'):
+                firstPiece = clone[5][2]
+                clone[5][2] = secondPiece
             else:
-                board[5][2] = secondPiece
+                clone[5][2] = secondPiece
                 firstPiece = '.'
-            if (board[3][2] != '.'):
-                secondPiece = board[3][2]
-                board[3][2] = firstPiece
+            if (clone[3][2] != '.'):
+                secondPiece = clone[3][2]
+                clone[3][2] = firstPiece
             else:
-                board[3][2] = firstPiece
+                clone[3][2] = firstPiece
                 secondPiece = '.'
-            board[3][0] = secondPiece
+            clone[3][0] = secondPiece
             firstPiece = '.'
             secondPiece = '.'
-            if (board[3][1] != '.'):
-                firstPiece = board[3][1]
+            if (clone[3][1] != '.'):
+                firstPiece = clone[3][1]
             else:
                 firstPiece = '.'
-            if (board[4][0] != '.'):
-                secondPiece = board[4][0]
-                board[4][0] = firstPiece
+            if (clone[4][0] != '.'):
+                secondPiece = clone[4][0]
+                clone[4][0] = firstPiece
             else:
-                board[4][0] = firstPiece
+                clone[4][0] = firstPiece
                 secondPiece = '.'
-            if (board[5][1] != '.'):
-                firstPiece = board[5][1]
-                board[5][1] = secondPiece
+            if (clone[5][1] != '.'):
+                firstPiece = clone[5][1]
+                clone[5][1] = secondPiece
             else:
-                board[5][1] = secondPiece
+                clone[5][1] = secondPiece
                 firstPiece = '.'
-            if (board[4][2] != '.'):
-                secondPiece = board[4][2]
-                board[4][2] = firstPiece
+            if (clone[4][2] != '.'):
+                secondPiece = clone[4][2]
+                clone[4][2] = firstPiece
             else:
-                board[4][2] = firstPiece
+                clone[4][2] = firstPiece
                 secondPiece = '.'
-            board[3][1] = secondPiece
+            clone[3][1] = secondPiece
         else:
             firstPiece = '.'
             secondPiece = '.'
 
-            if (board[3][3] != '.'):
-                firstPiece = board[3][3]
+            if (clone[3][3] != '.'):
+                firstPiece = clone[3][3]
             else:
                 firstPiece = '.'
-            if (board[5][3] != '.'):
-                secondPiece = board[5][3]
-                board[5][3] = firstPiece
+            if (clone[5][3] != '.'):
+                secondPiece = clone[5][3]
+                clone[5][3] = firstPiece
             else:
-                board[5][3] = firstPiece
+                clone[5][3] = firstPiece
                 secondPiece = '.'
-            if (board[5][5] != '.'):
-                firstPiece = board[5][5]
-                board[5][5] = secondPiece
+            if (clone[5][5] != '.'):
+                firstPiece = clone[5][5]
+                clone[5][5] = secondPiece
             else:
-                board[5][5] = secondPiece
+                clone[5][5] = secondPiece
                 firstPiece = '.'
-            if (board[3][5] != '.'):
-                secondPiece = board[3][5]
-                board[3][5] = firstPiece
+            if (clone[3][5] != '.'):
+                secondPiece = clone[3][5]
+                clone[3][5] = firstPiece
             else:
-                board[3][5] = firstPiece
+                clone[3][5] = firstPiece
                 secondPiece = '.'
-            board[3][3] = secondPiece
+            clone[3][3] = secondPiece
             firstPiece = '.'
             secondPiece = '.'
-            if (board[3][4] != '.'):
-                firstPiece = board[3][4]
+            if (clone[3][4] != '.'):
+                firstPiece = clone[3][4]
             else:
                 firstPiece = '.'
-            if (board[4][3] != '.'):
-                secondPiece = board[4][3]
-                board[4][3] = firstPiece
+            if (clone[4][3] != '.'):
+                secondPiece = clone[4][3]
+                clone[4][3] = firstPiece
             else:
-                board[4][3] = firstPiece
+                clone[4][3] = firstPiece
                 secondPiece = '.'
-            if (board[5][4] != '.'):
-                firstPiece = board[5][4]
-                board[5][4] = secondPiece
+            if (clone[5][4] != '.'):
+                firstPiece = clone[5][4]
+                clone[5][4] = secondPiece
             else:
-                board[5][4] = secondPiece
+                clone[5][4] = secondPiece
                 firstPiece = '.'
-            if (board[4][5] != '.'):
-                secondPiece = board[4][5]
-                board[4][5] = firstPiece
+            if (clone[4][5] != '.'):
+                secondPiece = clone[4][5]
+                clone[4][5] = firstPiece
             else:
-                board[4][5] = firstPiece
+                clone[4][5] = firstPiece
                 secondPiece = '.'
-            board[3][4] = secondPiece
+            clone[3][4] = secondPiece
             
-    return board
+    return clone
+
+
+
 
 def heuristicScore(board, piece):
     score = 0
@@ -719,99 +730,214 @@ def heuristicScore(board, piece):
                 score = score + 1    
     return score
 
-def utility(state):
-    score = heuristicScore(state, "W") - heuristicScore(state, "B")
+def utility(state, piece):
+    if (piece == "W"):
+        score = heuristicScore(state, "W") - heuristicScore(state, "B")
+    else:
+        score = heuristicScore(state, "B") - heuristicScore(state, "W")
     if(checkWin(state, "W") and checkWin(state, "B")):
         score = "tie"
     elif (checkWin(state, "w")):
         score = 100
     elif (checkWin(state, "B")):
         score = -100
+    #elif(score == 0):
+        #score = heuristicScore(state, piece)
     return score
 
 def successors(state, piece):
     possibleMoves = []
-    for i in range(6):
-        for k in range(6):
-            if (state[i][k] == "."):
-                temp = state
-                temp[i][k] = piece
-                possibleMoves.append(temp)
+    possibleFlips = [("1","R"),("1","L"),("2","R"),("2","L"),("3","R"),("3","L"),("4","R"),("4","L")]
+    for i in range(4):
+        for k in range(9):
+            move = "" + str(i + 1) + "/" + str(k + 1)
+            if (validMove(state, move)):
+                newState = movePiece(state, move, piece)
+                for flip in possibleFlips:
+                    clone = turnBoard(newState,flip[1], flip[0])
+                    possibleMoves.append((clone, i + 1, k + 1, flip[1], flip[0]))
+                    
     return possibleMoves
 
-def MaxValue(state, piece):
-    if (checkWin(state, "W") or checkWin(state, "B")):
-        return utility(state)
-    v = -1000000
-    for x in successors(state, piece):
-        v = max(v, minValue(x, piece))
-    return v
-
-def minValue(state, piece):
-    if (checkWin(state, "W") or checkWin(state, "B")):
-        return utility(state)
-    v = 1000000000
-    for x in successors(state, piece):
-        v = min(v, MaxValue(x, piece))
-    return v
-
-def miniMaxDecision(sate, piece):
-    v = MaxValue(sate, piece)
-
+def MaxValue(state, piece, depth, alpha, beta):
+    moveList = []
     
+    if (checkWin(state, "W") or checkWin(state, "B") or depth >= 2):
+        return utility(state, piece)
+    moves = successors(state, piece)
+    if (len(moves) == 0 ):
+        return utility(state, piece)
+    best_score = float('-inf')
+    for move in moves:
+        best_score = max(best_score, minValue(move[0],piece,depth + 1))
+        if (depth == 0):
+            moveList.append((move, best_score))
+    return (best_score, moveList)
 
+def minValue(state, piece, depth, alpha, beta):
+    if (checkWin(state, "W") or checkWin(state, "B") or depth >= 2):
+        return utility(state, piece)
+    moves = successors(state, piece)
+    if (len(moves) == 0 ):
+        return utility(state, piece)
+    best_score = float('inf')
+    for move in moves:
+        best_score = min(best_score, MaxValue(move[0],piece, depth + 1))
+    return best_score
 
+def miniMaxDecision(state, piece):
+    v = MaxValue(state, piece, 0)
+    moveList = v[1]
+    for move in moveList:     
+        if v[0] == move[1]:
+            return move[0]
+    
+def noMoreSpaces(state):
+    gameOver = True
+    for square in state:
+        if square == ".":
+            gameOver = False   
+    return gameOver
 
 player1Win = False
 player2Win = False
+player1Win = False
+player2Win = False
 
-player1 = input("Enter name of player1: ")
+player1 = input("Enter name of player: ")
 player2 = "AI"
-player1Color = input("Player1 Token Color (B or W): ")
+player1Color = input(player1 +" please pick Token Color (B or W): ")
+player1Color = player1Color.upper()
 if (player1Color == "W"):
     player2Color = "B"
 else:
     player2Color = "W"
-choice = input("Player to Move First (1 or 2): ")
+choice = input("Player to Move First (player or AI): ")
+choice = choice.upper()
 gameBoard = [['.' for x in range(6)] for y in range(6)]
-if (choice == "2"):
+if (choice == "AI"):
     player2 = player1
     player1 = "AI"
     temp = player1Color
     player1Color = player2Color
     player2Color = temp
 
-test = checkWin(gameBoard, player1Color)
+test = False
+print("----------------------------")
+print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
+      for row in gameBoard]))
+print("----------------------------")
 while (not test):
-    player1Move = input(player1 + " Enter Move: ")
-    player1Move = player1Move.split()
-    square = player1Move[0]
-    if (not validMove(gameBoard, square)):
-        while (not validMove(gameBoard, square)):
-            player1Move = input("Move not valid please try again: ")
-            player1Move = player1Move.split()
-            square = player1Move[0]
-    gameBoard = movePiece(gameBoard, square, player1Color)
-    print(player1Move)
-    gameBoard = turnBoard(gameBoard,player1Move[1][1], player1Move[1][0])
-    if (checkWin(gameBoard, player1Color)):
+    
+    if(player1 == "AI"):
+        player1Move = miniMaxDecision(gameBoard, player1Color)
+        print(player1 + " Enter Move: "  + str(player1Move[1]) + "/" + str(player1Move[2]) + " " + str(player1Move[4]) + player1Move[3])
+        square = str(player1Move[1]) + "/" + str(player1Move[2])
+        gameBoard = movePiece(gameBoard, square, player1Color)
+        print("----------------------------")
+        print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
+            for row in gameBoard]))
+        print("----------------------------")
+        print("Move: " + square)
+        if (checkWin(gameBoard, player1Color)):
+            player1Win = True
+            break
+        gameBoard = turnBoard(gameBoard,player1Move[3], player1Move[4])
+        print("----------------------------")
+        print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
+            for row in gameBoard]))
+        print("----------------------------")
+        print("Turn: " + str(player1Move[4]) +  " " + player1Move[3])
+        if (checkWin(gameBoard, player1Color)):
+            player1Win = True
+            break
+    else:
+        player1Move = input(player1 + " Enter Move: ")
+        player1Move = player1Move.split()
+        square = player1Move[0].upper()
+        if (not validMove(gameBoard, square)):
+            while (not validMove(gameBoard, square)):
+                player1Move = input("Move not valid please try again: ")
+                player1Move = player1Move.split()
+                square = player1Move[0].upper()
+        gameBoard = movePiece(gameBoard, square, player1Color)
+        print("----------------------------")
+        print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
+            for row in gameBoard]))
+        print("----------------------------")
+        print("Move: " + square)
+        if (checkWin(gameBoard, player1Color)):
+            player1Win = True
+            break
+        gameBoard = turnBoard(gameBoard,player1Move[1][1].upper(), player1Move[1][0])
+        print("----------------------------")
+        print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
+            for row in gameBoard]))
+        print("----------------------------")
+        print("Turn: " + str(player1Move[1][0]) +  " " + player1Move[1][1].upper())
+        if (checkWin(gameBoard, player1Color)):
+            player1Win = True
+            break
+    if(player2 == "AI"):
+        player2Move = miniMaxDecision(gameBoard, player2Color)
+        print(player2 + " Enter Move: "  + str(player2Move[1]) + "/" + str(player2Move[2])  + " " + str(player2Move[4]) + player2Move[3])
+        square = str(player2Move[1]) + "/" + str(player2Move[2])
+        gameBoard = movePiece(gameBoard, square, player2Color)
+        print("----------------------------")
+        print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
+            for row in gameBoard]))
+        print("----------------------------")
+        print("Move: " + square)
+        if (checkWin(gameBoard, player2Color)):
+            player2Win = True
+            break
+        gameBoard = turnBoard(gameBoard,player2Move[3], player2Move[4])
+        print("----------------------------")
+        print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
+            for row in gameBoard]))
+        print("----------------------------")
+        print("Turn: " + str(player2Move[4]) +  " " + player2Move[3])
+        if (checkWin(gameBoard, player2Color)):
+            player2Win = True
+            break
+    else:
+        player2Move = input(player2 + " Enter Move: ")
+        player2Move = player2Move.split()
+        square = player2Move[0].upper()
+        if (not validMove(gameBoard, square)):
+            while (not validMove(gameBoard, square)):
+                player2Move = input("Move not valid please try again: ")
+                player2Move = player2Move.split()
+                square = player2Move[0].upper()
+        gameBoard = movePiece(gameBoard, square, player2Color)
+        print("----------------------------")
+        print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
+            for row in gameBoard]))
+        print("----------------------------")
+        print("Move: " + square)
+        if (checkWin(gameBoard, player2Color)):
+            player2Win = True
+            break
+        gameBoard = turnBoard(gameBoard,player2Move[1][1].upper(), player2Move[1][0])
+        print("----------------------------")
+        print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
+            for row in gameBoard]))
+        print("----------------------------")
+        print("Turn: " + str(player2Move[1][0]) +  " " + player2Move[1][1].upper())
+        if (checkWin(gameBoard, player2Color)):
+            player2Win = True
+            break
+    if not noMoreSpaces(gameBoard):
         player1Win = True
-    print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
-      for row in gameBoard]))
-    player2Move = input(player2 + " Enter Move: ")
-    player2Move = player2Move.split()
-    square = player2Move[0]
-    if (not validMove(gameBoard, square)):
-        while (not validMove(gameBoard, square)):
-            player2Move = input("Move not valid please try again: ")
-            player2Move = player2Move.split()
-            square = player2Move[0]
-    gameBoard = movePiece(gameBoard, square, player2Color)
-    print(player2Move)
-    gameBoard = turnBoard(gameBoard,player2Move[1][1], player2Move[1][0])
-    if (checkWin(gameBoard, player2Color)):
         player2Win = True
-    print('\n'.join([''.join(['{:4}'.format(item) for item in row]) 
-      for row in gameBoard]))
-    print(heuristicScore(gameBoard, player1Color))
-    test = checkWin(gameBoard, player1Color) or checkWin(gameBoard, player2Color)
+        break
+player1Win = checkWin(gameBoard, player1Color)
+player2Win = checkWin(gameBoard, player2Color)
+if(player1Win and player2Win):
+    print("Game Tie!")
+elif(player1Win):
+    print(player1 + " wins!")
+elif(player2Win):
+    print(player2 + " wins!")
+else:
+    print("Game Tie!")
