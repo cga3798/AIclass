@@ -884,8 +884,8 @@ if (choice == "AI"):
 f = open("Output.txt", "w")
 test = False
 
-f.write("player1 - " = player1 + " Piece - " + player1Color + "\n")
-f.write("player2 - " = player2 + " Piece - " + player2Color + "\n")
+f.write("player1 - " + player1 + " Piece - " + player1Color + "\n")
+f.write("player2 - " + player2 + " Piece - " + player2Color + "\n")
 printBoard(gameBoard)
 filePrintBoard(gameBoard, f)
 while (not test):
