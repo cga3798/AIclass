@@ -884,8 +884,10 @@ if (choice == "AI"):
 f = open("Output.txt", "w")
 test = False
 
+f.write("player1 - " = player1 + " Piece - " + player1Color + "\n")
+f.write("player2 - " = player2 + " Piece - " + player2Color + "\n")
 printBoard(gameBoard)
-
+filePrintBoard(gameBoard, f)
 while (not test):
     if(player1 == "AI"):
         player1Move = alphaMiniMaxDecision(gameBoard, player1Color, nodes, 2)
