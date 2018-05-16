@@ -769,7 +769,7 @@ def successors(state, piece):
 
 
 def MaxValue(state, piece, depth, nodes, limit):
-    moveList[]
+    moveList = []
     nodes[0] = nodes[0] + 1
     if (checkWin(state, "W") or checkWin(state, "B") or depth >= limit):
         return utility(state, piece)
@@ -778,8 +778,7 @@ def MaxValue(state, piece, depth, nodes, limit):
         return utility(state, piece)
     best_score = float('-inf')
     for move in moves:
-        if (alpha < beta):
-            best_score = max(best_score, minValue(move[0],piece,depth + 1, alpha, best_score, nodes, limit))
+        best_score = max(best_score, minValue(move[0],piece,depth + 1, nodes, limit))
         if (depth == 0):
             moveList.append((move, best_score))
     return (best_score, moveList)
@@ -793,8 +792,7 @@ def minValue(state, piece, depth, nodes, limit):
         return utility(state, piece)
     best_score = float('inf')
     for move in moves:
-        if (alpha < beta):
-            best_score = min(best_score, MaxValue(move[0],piece, depth + 1, best_score, beta, nodes, limit))
+        best_score = min(best_score, MaxValue(move[0],piece, depth + 1, nodes, limit))
     return best_score
 
 def miniMaxDecision(state, piece, nodes, limit):
