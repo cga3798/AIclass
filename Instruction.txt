@@ -1,0 +1,11 @@
+python Pentago.py
+
+enter user name
+
+enter user color/piece ("W"/"B")
+
+enter who goes first ("PLAYER"/ "AI")
+
+enter move (box #/square #)
+
+enter rotation (box #/ sqaure #)

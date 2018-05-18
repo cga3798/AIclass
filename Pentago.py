@@ -743,9 +743,7 @@ def utility(state, piece):
         score = heuristicScore(state, "W") - heuristicScore(state, "B")
     else:
         score = heuristicScore(state, "B") - heuristicScore(state, "W")
-    if(checkWin(state, "W") and checkWin(state, "B")):
-        score = "tie"
-    elif (checkWin(state, "w")):
+    if (checkWin(state, "w")):
         score = 100
     elif (checkWin(state, "B")):
         score = -100
@@ -763,8 +761,9 @@ def successors(state, piece):
                 newState = movePiece(state, move, piece)
                 for flip in possibleFlips:
                     clone = turnBoard(newState,flip[1], flip[0])
-                    possibleMoves.append((clone, i + 1, k + 1, flip[1], flip[0]))
-                    
+                    score = utility(clone, piece)
+                    possibleMoves.append((clone, i + 1, k + 1, flip[1], flip[0], score))
+    possibleMoves.sort(key=lambda tup: tup[5], reverse=True)
     return possibleMoves
 
 
@@ -772,27 +771,35 @@ def MaxValue(state, piece, depth, nodes, limit):
     moveList = []
     nodes[0] = nodes[0] + 1
     if (checkWin(state, "W") or checkWin(state, "B") or depth >= limit):
-        return utility(state, piece)
+        return (utility(state, piece), "")
     moves = successors(state, piece)
     if (len(moves) == 0 ):
-        return utility(state, piece)
-    best_score = float('-inf')
+        return (utility(state, piece), "")
+    best_score = (float('-inf'), "")
     for move in moves:
-        best_score = max(best_score, minValue(move[0],piece,depth + 1, nodes, limit))
+        temp = minValue(move[0],piece,depth + 1, nodes, limit)
+        if (temp[0] > best_score[0]):
+            best_score = temp
+       
         if (depth == 0):
             moveList.append((move, best_score))
-    return (best_score, moveList)
+    if (depth == 0):
+        return (best_score, moveList)
+    else:
+        return best_score
 
 def minValue(state, piece, depth, nodes, limit):
     nodes[0] = nodes[0] + 1
     if (checkWin(state, "W") or checkWin(state, "B") or depth >= limit):
-        return utility(state, piece)
+        return (utility(state, piece), "")
     moves = successors(state, piece)
     if (len(moves) == 0 ):
-        return utility(state, piece)
-    best_score = float('inf')
+        return (utility(state, piece), "")
+    best_score = (float('inf'), "")
     for move in moves:
-        best_score = min(best_score, MaxValue(move[0],piece, depth + 1, nodes, limit))
+        temp = MaxValue(move[0],piece, depth + 1, nodes, limit)
+        if (temp[0] < best_score[0]):
+            best_score = temp
     return best_score
 
 def miniMaxDecision(state, piece, nodes, limit):
@@ -807,33 +814,40 @@ def alphaMaxValue(state, piece, depth, alpha, beta, nodes, limit):
     moveList = []
     alphaNodes[0] = alphaNodes[0] + 1
     if (checkWin(state, "W") or checkWin(state, "B") or depth >= limit):
-        return utility(state, piece)
+        return (utility(state, piece), "")
     moves = successors(state, piece)
     if (len(moves) == 0 ):
-        return utility(state, piece)
-    best_score = float('-inf')
+        return (utility(state, piece), "")
+    best_score = (float('inf'), "")
     for move in moves:
-        if (alpha < beta):
-            best_score = max(best_score, alphaMinValue(move[0],piece,depth + 1, alpha, best_score, nodes, limit))
+        temp = alphaMinValue(move[0],piece,depth + 1, alpha, best_score, nodes, limit)
+        if (alpha[0] < beta[0]):
+            if (temp[0] > best_score[0]):
+                best_score = temp
         if (depth == 0):
             moveList.append((move, best_score))
-    return (best_score, moveList)
+    if (depth == 0):
+        return (best_score, moveList)
+    else:
+        return best_score
 
 def alphaMinValue(state, piece, depth, alpha, beta, nodes, limit):
     alphaNodes[0] = alphaNodes[0] + 1
     if (checkWin(state, "W") or checkWin(state, "B") or depth >= limit):
-        return utility(state, piece)
+        return (utility(state, piece), "")
     moves = successors(state, piece)
     if (len(moves) == 0 ):
-        return utility(state, piece)
-    best_score = float('inf')
+        return (utility(state, piece), "")
+    best_score = (float('inf'), "")
     for move in moves:
-        if (alpha < beta):
-            best_score = min(best_score, alphaMaxValue(move[0],piece, depth + 1, best_score, beta, nodes, limit))
+        temp = alphaMaxValue(move[0],piece, depth + 1, best_score, beta, nodes, limit)
+        if (alpha[0] < beta[0]):
+            if (temp[0] < best_score[0]):
+                best_score = temp
     return best_score
 
 def alphaMiniMaxDecision(state, piece, nodes, limit):
-    v = alphaMaxValue(state, piece, 0, float('-inf'), float('inf'), nodes, limit)
+    v = alphaMaxValue(state, piece, 0, (float('-inf'), ""), (float('inf'), ""), nodes, limit)
     moveList = v[1]
     for move in moveList:     
         if v[0] == move[1]:
@@ -889,8 +903,9 @@ f.write("player2 - " + player2 + " Piece - " + player2Color + "\n")
 printBoard(gameBoard)
 filePrintBoard(gameBoard, f)
 while (not test):
+    print(nodes)
     if(player1 == "AI"):
-        player1Move = alphaMiniMaxDecision(gameBoard, player1Color, nodes, 2)
+        player1Move = alphaMiniMaxDecision(gameBoard, player1Color, nodes, 1)
         print(player1 + " Enter Move: "  + str(player1Move[1]) + "/" + str(player1Move[2]) + " " + str(player1Move[4]) + player1Move[3])
         f.write(player1 + " Enter Move: "  + str(player1Move[1]) + "/" + str(player1Move[2]) + " " + str(player1Move[4]) + player1Move[3] + "\n")
         square = str(player1Move[1]) + "/" + str(player1Move[2])
@@ -901,7 +916,7 @@ while (not test):
 
         print("Move: " + square)
         f.write("Move: " + square + "\n")
-        if (checkWin(gameBoard, player1Color)):
+        if (checkWin(gameBoard, player1Color) or checkWin(gameBoard, player2Color)):
             player1Win = True
             break
         gameBoard = turnBoard(gameBoard,player1Move[3], player1Move[4])
@@ -911,7 +926,7 @@ while (not test):
 
         print("Turn: " + str(player1Move[4]) +  " " + player1Move[3])
         f.write("Turn: " + str(player1Move[4]) +  " " + player1Move[3]+ "\n")
-        if (checkWin(gameBoard, player1Color)):
+        if (checkWin(gameBoard, player1Color) or checkWin(gameBoard, player2Color)):
             player1Win = True
             break
     else:
@@ -931,7 +946,7 @@ while (not test):
         
         print("Move: " + square)
         f.write("Move: " + square+ "\n")
-        if (checkWin(gameBoard, player1Color)):
+        if (checkWin(gameBoard, player1Color) or checkWin(gameBoard, player2Color)):
             player1Win = True
             break
         gameBoard = turnBoard(gameBoard,player1Move[1][1].upper(), player1Move[1][0])
@@ -941,11 +956,11 @@ while (not test):
         
         print("Turn: " + str(player1Move[1][0]) +  " " + player1Move[1][1].upper())
         f.write("Turn: " + str(player1Move[1][0]) +  " " + player1Move[1][1].upper())
-        if (checkWin(gameBoard, player1Color)):
+        if (checkWin(gameBoard, player1Color) or checkWin(gameBoard, player2Color)):
             player1Win = True
             break
     if(player2 == "AI"):
-        player2Move = alphaMiniMaxDecision(gameBoard, player2Color, nodes, 2)
+        player2Move = alphaMiniMaxDecision(gameBoard, player2Color, nodes, 1)
         print(player2 + " Enter Move: "  + str(player2Move[1]) + "/" + str(player2Move[2])  + " " + str(player2Move[4]) + player2Move[3])
         f.write(player2 + " Enter Move: "  + str(player2Move[1]) + "/" + str(player2Move[2])  + " " + str(player2Move[4]) + player2Move[3]+ "\n")
         square = str(player2Move[1]) + "/" + str(player2Move[2])
@@ -956,7 +971,7 @@ while (not test):
 
         print("Move: " + square)
         f.write("Move: " + square)
-        if (checkWin(gameBoard, player2Color)):
+        if (checkWin(gameBoard, player2Color) or checkWin(gameBoard, player1Color)):
             player2Win = True
             break
         gameBoard = turnBoard(gameBoard,player2Move[3], player2Move[4])
@@ -966,7 +981,7 @@ while (not test):
 
         print("Turn: " + str(player2Move[4]) +  " " + player2Move[3])
         f.write("Turn: " + str(player2Move[4]) +  " " + player2Move[3]+ "\n")
-        if (checkWin(gameBoard, player2Color)):
+        if (checkWin(gameBoard, player2Color) or checkWin(gameBoard, player1Color)):
             player2Win = True
             break
     else:
@@ -986,7 +1001,7 @@ while (not test):
         
         print("Move: " + square)
         f.write("Move: " + square + "\n")
-        if (checkWin(gameBoard, player2Color)):
+        if (checkWin(gameBoard, player2Color) or checkWin(gameBoard, player1Color)):
             player2Win = True
             break
         gameBoard = turnBoard(gameBoard,player2Move[1][1].upper(), player2Move[1][0])
@@ -996,7 +1011,7 @@ while (not test):
         
         print("Turn: " + str(player2Move[1][0]) +  " " + player2Move[1][1].upper())
         f.write("Turn: " + str(player2Move[1][0]) +  " " + player2Move[1][1].upper()+ "\n")
-        if (checkWin(gameBoard, player2Color)):
+        if (checkWin(gameBoard, player2Color) or checkWin(gameBoard, player1Color)):
             player2Win = True
             break
     if not noMoreSpaces(gameBoard):
@@ -1017,3 +1032,9 @@ elif(player2Win):
 else:
     print("Game Tie!")
     f.write("Game Tie!"+ "\n")
+
+f.close()
+
+f = open("Readme.txt", "a")
+f.write("Minmax	with Alpha-Beta	Pruning: depth level 1\n")
+f.write("" + str(alphaNodes[0]))

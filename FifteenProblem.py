@@ -397,10 +397,145 @@ def validMove(spaceLoc, dir):
             move = True
 
     return move
+
+
 gameStats = treeSearch(root, searchMethod, endState, options)
 print(gameStats)
-
 F = open("Readme.txt", "w")
+
+
+initialState = "123456789ABC DFE"
+searchMethod = "BFS"
+options = ""
+root = (initialState, 0, "")
+gameStats = treeSearch(root, searchMethod, endState, options)
 F.write(initialState + " " + searchMethod + " " + options + "\n")
 F.write(','.join(str(e) for e in gameStats))
+F.write("\n")
+
+initialState = "123456789AB CDFE"
+searchMethod = "BFS"
+options = ""
+root = (initialState, 0, "")
+gameStats = treeSearch(root, searchMethod, endState, options)
+F.write(initialState + " " + searchMethod + " " + options + "\n")
+F.write(','.join(str(e) for e in gameStats))
+F.write("\n")
+
+
+initialState = "123456789ABC DFE"
+searchMethod = "DFS"
+options = ""
+root = (initialState, 0, "")
+gameStats = treeSearch(root, searchMethod, endState, options)
+F.write(initialState + " " + searchMethod + " " + options + "\n")
+F.write(','.join(str(e) for e in gameStats))
+F.write("\n")
+
+initialState = "123456789AB CDFE"
+searchMethod = "DFS"
+options = ""
+root = (initialState, 0, "")
+gameStats = treeSearch(root, searchMethod, endState, options)
+F.write(initialState + " " + searchMethod + " " + options + "\n")
+F.write(','.join(str(e) for e in gameStats))
+F.write("\n")
+
+
+initialState = "123456789ABC DFE"
+searchMethod = "DLS"
+options = "3"
+root = (initialState, 0, "")
+gameStats = treeSearch(root, searchMethod, endState, options)
+F.write(initialState + " " + searchMethod + " " + options + "\n")
+F.write(','.join(str(e) for e in gameStats))
+F.write("\n")
+
+initialState = "123456789AB CDFE"
+searchMethod = "DLS"
+options = "3"
+root = (initialState, 0, "")
+gameStats = treeSearch(root, searchMethod, endState, options)
+F.write(initialState + " " + searchMethod + " " + options + "\n")
+F.write(','.join(str(e) for e in gameStats))
+F.write("\n")
+
+initialState = "123456789ABC DFE"
+searchMethod = "GBFS"
+options = "h1"
+root = (initialState, 0, "")
+gameStats = treeSearch(root, searchMethod, endState, options)
+F.write(initialState + " " + searchMethod + " " + options + "\n")
+F.write(','.join(str(e) for e in gameStats))
+F.write("\n")
+
+
+initialState = "123456789AB CDFE"
+searchMethod = "GBFS"
+options = "h1"
+root = (initialState, 0, "")
+gameStats = treeSearch(root, searchMethod, endState, options)
+F.write(initialState + " " + searchMethod + " " + options + "\n")
+F.write(','.join(str(e) for e in gameStats))
+F.write("\n")
+
+initialState = "123456789ABC DFE"
+searchMethod = "GBFS"
+options = "h2"
+root = (initialState, 0, "")
+gameStats = treeSearch(root, searchMethod, endState, options)
+F.write(initialState + " " + searchMethod + " " + options + "\n")
+F.write(','.join(str(e) for e in gameStats))
+F.write("\n")
+
+initialState = "123456789AB CDFE"
+searchMethod = "GBFS"
+options = "h2"
+root = (initialState, 0, "")
+gameStats = treeSearch(root, searchMethod, endState, options)
+F.write(initialState + " " + searchMethod + " " + options + "\n")
+F.write(','.join(str(e) for e in gameStats))
+F.write("\n")
+
+
+initialState = "123456789ABC DFE"
+searchMethod = "AStar"
+options = "h1"
+root = (initialState, 0, "")
+gameStats = treeSearch(root, searchMethod, endState, options)
+F.write(initialState + " " + searchMethod + " " + options + "\n")
+F.write(','.join(str(e) for e in gameStats))
+F.write("\n")
+
+
+initialState = "123456789AB CDFE"
+searchMethod = "AStar"
+options = "h1"
+root = (initialState, 0, "")
+gameStats = treeSearch(root, searchMethod, endState, options)
+F.write(initialState + " " + searchMethod + " " + options + "\n")
+F.write(','.join(str(e) for e in gameStats))
+F.write("\n")
+
+initialState = "123456789ABC DFE"
+searchMethod = "AStar"
+options = "h2"
+root = (initialState, 0, "")
+gameStats = treeSearch(root, searchMethod, endState, options)
+F.write(initialState + " " + searchMethod + " " + options + "\n")
+F.write(','.join(str(e) for e in gameStats))
+F.write("\n")
+
+initialState = "123456789AB CDFE"
+searchMethod = "AStar"
+options = "h2"
+root = (initialState, 0, "")
+gameStats = treeSearch(root, searchMethod, endState, options)
+F.write(initialState + " " + searchMethod + " " + options + "\n")
+F.write(','.join(str(e) for e in gameStats))
+F.write("\n")
+
+
+
 F.close()
+
