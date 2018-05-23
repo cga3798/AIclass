@@ -401,6 +401,7 @@ def validMove(spaceLoc, dir):
 
 gameStats = treeSearch(root, searchMethod, endState, options)
 print(gameStats)
+'''
 F = open("Readme.txt", "w")
 
 
@@ -538,4 +539,4 @@ F.write("\n")
 
 
 F.close()
-
+'''

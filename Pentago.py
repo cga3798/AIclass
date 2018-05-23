@@ -689,6 +689,11 @@ def turnBoard(board, dir, box):
 def heuristicScore(board, piece):
     score = 0
     gamePieces = []
+    enemyPiece = ""
+    if (piece == "W"):
+        enemyPiece = "B"
+    else:
+        enemyPiece = "W"
     for i in range(6):
         temp = ""
         for j in range(6):
@@ -719,10 +724,16 @@ def heuristicScore(board, piece):
     for x in gamePieces:
         tempCount = 0
         threeIn = 0
+        enemyin = 0
         for letter in x:
             if (threeIn >= 3):
                 score += 10
-
+            if (enemyin >= 3):
+                score -= 20
+            if (letter == enemyPiece):
+                enemyin = enemyin + 1
+            else:
+                enemyin = 0
             if (letter == piece):
                 threeIn = threeIn + 1
             else:
