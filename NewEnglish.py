@@ -11,11 +11,12 @@ bigrams = ngrams(token,2)
 trigrams = ngrams(token,3)
 
 for b in trigrams:
-    if (b[0] not in word1dDict):
-        word1dDict[b[0]] = [((b[1], 1), [(b[2], 1)], 1)]
+    if (b[0] not in word1dDict.keys()):
+        word1dDict[b[0]] = ([((b[1], 1), [(b[2], 1)])], 1)
     else:
-        temp = word1dDict.get(b[0])
+        temp = word1dDict.get(b[0])[0]
         found = False
+        
         for n in temp:
             if n[0][0] == b[1]:
                 found = True
@@ -28,10 +29,12 @@ for b in trigrams:
                 if not found1:
                     n[1].append((b[2], 1))
                 temp1 = (n[0][0], n[0][1] + 1)
-                word1dDict[b[0]] = [(temp1, n[1], n[2])]
+                number = word1dDict.get(b[0])[1]
+                word1dDict[b[0]] = ([(temp1, n[1])], number)
         if not found:
             temp.append(((b[1], 1), [(b[2], 1)]))      
-        newTemp = [(n[0], n[1], n[2] + 1) ]
+        newTemp = word1dDict.get(b[0])
+        newTemp = (newTemp[0], newTemp[1] + 1) 
         word1dDict[b[0]] = newTemp 
 
 
@@ -39,16 +42,19 @@ for b in trigrams:
 #for n in word1dDict:
    # if(word1dDict.get(n)[0][0][1] > 1 ):
        # print(word1dDict.get(n))
-
+'''
 for n in word1dDict:
-    for k in word1dDict.get(n):
-        word2Dict[n] = [((k[0][0], k[0][1]/k[2]), k[1], k[2])]
+    for k in word1dDict.get(n)[0]:
+        print(k[0])
+        temp = (k[0][0], k[0][1] / k[1] )
+        word2Dict[n] = (temp )
         for l in k[1]:
             word2Dict[n] = [(k[0], [(l[0], l[1]/len(k[1]))], k[2])]
-
-for n in word2Dict:
-    if(word2Dict.get(n)[0][0][1] > 1 ):
-        print(word2Dict.get(n))
-options = list(word2Dict.keys())
+'''
+for n in word1dDict:
+    print(word1dDict.get(n))
+    if(word1dDict.get(n)[1] > 1 ):
+        print(word1dDict.get(n))
+options = list(word1dDict.keys())
 choice = random.choice(options)
 
